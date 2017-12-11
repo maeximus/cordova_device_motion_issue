@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo to show devicemotion issues in Cordova</title>
+</head>
+<body>
+    <div id="acceleration_output">
+        Sorry, your device does not support device motion in cordova.
+    </div>
+    <script type="text/javascript">
+        //Register Faulty Event
+        window.addEventListener("devicemotion",processEvent, true);
+
+        //Variable to determine wether it is the first iteration or not. Required since the event is fired once on faulty devices.
+        var is_first_interval = true;
+
+        //function called on event.
+        function processEvent(e){
+            if ( e.rotationRate && !is_first_interval) {
+                //sinply output rotation rates
+                var acceleration_state = e.rotationRate.alpha + "<br>" + e.rotationRate.beta + "<br>" + e.rotationRate.gamma;
+                document.getElementById("acceleration_output").innerHTML = acceleration_state;
+            }
+
+            //toggle var
+            is_first_interval = false;
+        }
+    </script>
+
+</body>
+</html>
